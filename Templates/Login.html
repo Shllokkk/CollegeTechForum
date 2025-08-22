@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  {% load static %}
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="{% static 'Login.css' %}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<body>
+  <main>
+    <header>
+      <h4>Login</h4>
+    </header>
+
+    <!-- Login Form -->
+    <form id="login-form" method="post">
+      {% csrf_token %}
+
+      <!-- Username -->
+      <div class="form_wrapper">
+        <input id="input" type="text" name="input" required />
+        <label for="input">Username</label>
+        <i class="material-icons">person</i>
+      </div>
+
+      <!-- Password -->
+      <div class="form_wrapper">
+        <input id="password" type="password" name="password" required />
+        <label for="password">Password</label>
+        <i class="material-icons visibility-icon" id="togglePassword">visibility_off</i>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary">Log In</button>
+
+      <!-- Signup redirect -->
+      <div class="new_account">
+        Don't have an account? <a href="/SignUp">Sign up</a>
+      </div>
+    </form>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(function() {
+      $('#login-form').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+          url: '/LogInButton',
+          type: 'POST',
+          data: $(this).serialize(),
+          dataType: 'json',
+          success: function(response) {
+            if (response.success) {
+              window.location.href = '/Home';
+            } else {
+              alert(response.message);
+            }
+          },
+          error: function() {
+            alert('Invalid Credentials');
+          }
+        });
+      });
+
+      // Toggle password visibility
+      $('#togglePassword').on('click', function() {
+        const passwordInput = $('#password');
+        const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+        passwordInput.attr('type', type);
+        $(this).text(type === 'password' ? 'visibility_off' : 'visibility');
+      });
+    });
+  </script>
+</body>
+</html>

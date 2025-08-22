@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block head %}
+{{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<body style="background-color: #1E1E1E; font-family: Arial, sans-serif; margin: 0; padding: 0;"></body>
+<div class="Query col-md-5" style="padding: 0; margin-top: 70px;animation: slideIn 1s ease forwards;">
+    <ul style="list-style-type: none; padding: 0; margin: 10px 500px;">
+        {% for event in EList %}
+    <li style="border: 2px solid #000000; padding: 20px; margin-bottom: 10px; border-radius: 10px; width: 500px; height: 350px; background-color: #eaeac6; position: relative; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);margin-left: 50px;">
+        <div>
+            Name: {{ event.name }} <br>
+            Querry: {{ event.desc }}<br>
+            Date: {{ event.date }}<br>
+        </div>
+        {% if event.answers.exists %}
+            {% with first_answer=event.answers.first %}
+                <ul class="answerList" style="list-style-type: none; padding: 0; margin-top: 20px;">
+                    <li style="border: 1px solid beige; background-color: #f9f9f9;padding: 10px;margin-bottom: 10px; border-radius: 5px;height: 150px;margin-top: 30px;box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                         Answer:-{{ first_answer.response }}<br>
+                    </li>   
+                </ul>
+                <div class="answeredBy" style="position: absolute; bottom: 80px; right: 30px; font-style: italic;">
+                    Answered by : {{ first_answer.user.username }}
+                </div>
+            {% endwith %}
+        {% else %}
+            <div class="answerList" style="list-style-type: none; padding: 0; margin-top: 20px;">
+                <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; background-color: #f9f9f9;height: 150px;margin-top: 30px;box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                    <p>No answers available for this query.</p>
+                </div>
+            </div>
+        {% endif %}
+        <div class="allAnswer" style="position: absolute; bottom: 10px; right: 10px;">
+            <a href="{% url 'AllAnswers' query_id=event.query_id %}">View All Answers</a>
+        </div>
+        <div class="Answer" style="position: absolute; bottom: 10px; left: 20px;">
+            <a href="{% url 'AnsweringQuery' query_id=event.query_id %}">Answer this Query</a>
+        </div>
+    </li>
+{% endfor %}
+    </ul>
+</div>
+</body>
+<style>
+    @keyframes slideIn {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+</style>
+{% endblock body %}

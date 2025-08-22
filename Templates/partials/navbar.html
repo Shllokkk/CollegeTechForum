@@ -1,0 +1,53 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top app-navbar">
+  <a class="navbar-brand" style="background: linear-gradient(90deg, #0056d6, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold; margin-left: 50px;">
+    DBIT TechForum
+  </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto app-nav" style="margin-left: 35px;">
+      <li class="nav-item {% if request.path == '/Home' %} active{% endif %}">
+        <a class="nav-link" href="/Home">Home </a>
+      </li>
+      <li class="nav-item {% if request.path == '/AskingQuerry' %} active{% endif %}">
+        <a class="nav-link" href="/AskingQuerry">Ask A Query</a>
+      </li>
+      <li class="nav-item {% if request.path == '/unanswered/' %} active{% endif %}">
+        <a class="nav-link" href="/unanswered/">Unaswered Queries</a>
+      </li>
+      <li class="nav-item {% if request.path == '/ContactUs' %} active{% endif %}">
+        <a class="nav-link" href="/ContactUs">Contact Us</a>
+      </li>
+      <li class="nav-item {% if request.path == '/AboutUs' %} active{% endif %}">
+        <a class="nav-link" href="/AboutUs">About Us</a>
+      </li>
+    </ul>
+
+    <div class="dropdown show app-user-menu">
+      <a class="btn btn-secondary dropdown-toggle d-flex align-items-center justify-content-between" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="app-user-initials">
+          <span>{{ initials }}</span>
+        </div>
+        <span class="sr-only">Toggle Dropdown</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right app-dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="\AllQueries">
+          <img src="{% static 'help.png' %}"> Your Queries
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{% url 'Logout' %}">
+          <img src="{% static 'logout.png' %}"> Logout
+        </a>
+      </div>
+    </div>
+
+    <form method="get" action="/Search" class="form-inline my-2 my-lg-0 app-search" onsubmit="return validateSearch()">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="Search" id="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+

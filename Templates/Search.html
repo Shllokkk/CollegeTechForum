@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<div class="Query col-md-5" style="padding: 0; margin-top: 40px; margin-left: 15px;">
+  {% if no_results %}
+    <script>
+      alert("No results found for '{{ search_query }}'");
+      window.location.href = "/Search";  // reload to blank page
+    </script>
+  {% else %}
+    <ul class="query-list">
+      {% for event in EList %}
+      <li class="query-card" style="width: 640px;">
+        <div>
+          Posted By: {{ event.name }} <br>
+          Query: {{ event.desc }}<br>
+          Date: {{ event.date }}<br>
+        </div>
+        {% if event.answers.exists %}
+          {% with first_answer=event.answers.first %}
+          <ul class="answerList" style="list-style-type: none; padding: 0; margin-top: 20px;">
+            <li class="answer-card">
+              Answer:- {{ first_answer.response }}<br>
+            </li>
+          </ul>
+          <div class="answered-by">
+            Answered by : {{ first_answer.user.username }}
+          </div>
+          {% endwith %}
+        {% else %}
+          <div class="answerList" style="list-style-type: none; padding: 0; margin-top: 20px;">
+            <div class="answer-card" style="background-color: var(--color-gray-100);">
+              <p>No answers available for this query.</p>
+            </div>
+          </div>
+        {% endif %}
+        <div class="query-actions">
+          <a href="{% url 'AllAnswers' query_id=event.query_id %}">View All Answers</a>
+        </div>
+        <div class="query-actions-left">
+          <a href="{% url 'AnsweringQuery' query_id=event.query_id %}">Answer this Query</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock body %}

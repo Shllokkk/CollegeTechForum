@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+    <div style="display: flex; justify-content: center; align-items: flex-start; height: 100vh; background-color: #fff;">
+        <div style="border: 1px solid #007bff; padding: 30px; width: 500px; background-color: #fff; border-radius: 10px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; margin-top: 50px;">
+            <h2 style="font-family: 'Roboto', sans-serif; font-size: 28px; margin-bottom: 20px; color: #333; text-align: center; animation: fadeInUp 0.5s ease-in-out;">Query Details</h2>
+            <p style="font-size: 16px; color: #444;">
+                <strong>Name:</strong> {{ query.name }}<br>
+                <strong>Query:</strong> {{ query.desc }}<br>
+                <strong>Date:</strong> {{ query.date }}<br>
+            </p>
+            <form id="answer-form" method="post" action="{% url 'Answered' query_id=query.query_id %}">
+                {% csrf_token %}
+                <div style="margin-bottom: 15px;">
+                    <label for="response" style="font-size: 16px; font-weight: bold; color: #333;">Answer This Query</label>
+                    <textarea class="form-control" id="response" name="response" placeholder="Answer..(Maximum 100 characters)" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; height: 192px; transition: border 0.3s ease;" onfocus="this.style.borderColor='#007bff'; this.style.boxShadow='0 0 8px rgba(0,123,255,0.2)';" onblur="this.style.borderColor='#ccc'; this.style.boxShadow='none';" oninput="checkCharCount(this, 100)" required></textarea>
+                    <p id="charCount" style="font-size: 12px; color: red;"></p>
+                </div> 
+                <button type="submit" style="background: linear-gradient(90deg, #007bff, #168cb7);; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#0056b3';" onmouseout="this.style.backgroundColor='#007bff';">Submit</button>
+            </form>
+            <script>
+                const form = document.getElementById("answer-form");
+              
+                form.addEventListener("submit", function(e) {
+                  e.preventDefault();
+              
+                  fetch(form.action, {
+                    method: "POST",
+                    body: new FormData(form),
+                    headers: {
+                      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+                    }
+                  })
+                  .then(res => res.json())
+                  .then(data => {
+                    alert(data.message); // show alert for success or failure
+                    if (data.success) {
+                      location.reload(); // refresh page to show new answer
+                    }
+                  })
+                  .catch(err => alert("⚠️ Something went wrong: " + err));
+                });
+              </script>
+        </div>
+    </div>
+
+    <style>
+        /* Page-scoped: hide vertical scrollbar on this page only */
+        html, body { overflow-y: hidden; }
+    </style>
+    <script>
+        function checkCharCount(textarea, limit) {
+            var charCount = textarea.value.length;
+            if (charCount > limit) {
+                textarea.value = textarea.value.substring(0, limit);
+            }
+            document.getElementById("charCount").innerText = "Character count: " + charCount;
+        }
+
+        // Animation for fade-in effect
+        document.addEventListener("DOMContentLoaded", function() {
+            const queryBox = document.querySelector('.query-box');
+            setTimeout(() => {
+                queryBox.style.transform = "scale(1.05)";
+                queryBox.style.boxShadow = "0 15px 30px rgba(0, 0, 0, 0.2)";
+            }, 100);
+
+            setTimeout(() => {
+                queryBox.style.transform = "scale(1)";
+                queryBox.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 0.1)";
+            }, 300);
+        });
+    </script>
+{% endblock body %}

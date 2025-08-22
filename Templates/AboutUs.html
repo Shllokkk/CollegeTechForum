@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock title %}
+{% block body %}
+<div class="container" style="width: 80%; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); margin-top: 15px; animation: fadeIn 1s ease;">
+    <h2 style="color: #333; text-align: center; margin-top: 5px;">About DBIT TechForum</h2>
+    <p style="color: #666; line-height: 1.6;">DbIT TechForum is a platform designed for students of Dbit to come together, learn, and grow. It provides a space for students to interact, ask questions, and share knowledge with each other.</p>
+
+    <h3 style="color: #333; margin-top: 30px;">Key Features</h3>
+    <ul style="list-style-type: disc; margin-left: 20px; color: #666;">
+        <li>Discussion forum for sharing queries and knowledge</li>
+        <li>Q&A section for asking and answering questions</li>
+        <li>Category functionality for finding relevant discussions</li>
+        <li>User authentication and profiles</li>
+        <li>Rating System</li>
+    </ul>
+
+    <div class="team-section" style="display: flex; justify-content: space-between; margin-top: 30px;">
+        <!-- Developers Section -->
+        <div class="developers" style="width: 48%;">
+            <h3 style="color: #333; margin-bottom: 10px;">Meet the Developers!</h3>
+            
+            <div class="team-member" style="margin-top: 30px;">
+                <div class="info">
+                    <h4 style="margin: 0; color: #333;">Shllok Osan</h4>
+                    <p style="margin: 5px 0;">
+                        <a href="https://www.linkedin.com/in/shllok-osan-6aa7a52b3/" target="_blank">
+                            <img src="static/linkedin.png" alt="LinkedIn" style="height: 20px; width: auto; margin-right: 5px;">
+                        </a>
+                        <a href="https://www.instagram.com/shllokkk__?igsh=MXY4NWZqdmdzbWI5cQ%3D%3D&utm_source=qr" target="_blank">
+                            <img src="static/instagram.png" alt="Instagram" style="height: 20px; width: auto; margin-left: 10px; margin-right: 5px;">
+                        </a>
+                    </p>
+
+                    <h4 style="margin: 0; color: #333;">Sahil Sanghvi</h4>
+                    <p style="margin: 5px 0;">
+                        <a href="https://www.linkedin.com/in/sahil-sanghvi-4974a6263?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+                            <img src="static/linkedin.png" alt="LinkedIn" style="height: 20px; width: auto; margin-right: 5px;">
+                        </a>
+                        <a href="https://www.instagram.com/sahil.sanghvii?igsh=dGJzNzAyZXIyMXU1" target="_blank">
+                            <img src="static/instagram.png" alt="Instagram" style="height: 20px; width: auto; margin-left: 10px; margin-right: 5px;">
+                        </a>
+                    </p>
+
+                    <h4 style="margin: 0; color: #333;">Harsh Chaudhari</h4>
+                    <p style="margin: 5px 0;">
+                        <a href="https://www.linkedin.com/in/harsh-chaudhari-a8570725b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+                            <img src="static/linkedin.png" alt="LinkedIn" style="height: 20px; width: auto; margin-right: 5px;">
+                        </a>
+                        <a href="https://www.instagram.com/harsh_chaudhari_212?igsh=ZjFkczVoOHNqNGtl" target="_blank">
+                            <img src="static/instagram.png" alt="Instagram" style="height: 20px; width: auto; margin-left: 10px; margin-right: 5px;">
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mentor Section -->
+        <div class="mentor" style="width: 48%; text-align: center;">
+            <h3 style="color: #333; margin-bottom: 20px;">Meet the Mentor!</h3>
+            <div class="mentor-info" style="margin-top: 30px;">
+                <h4 style="margin: 0; color: #333;">Shivsevak Negi</h4>
+                <p style="margin: 5px 0;">
+                    <a href="https://www.linkedin.com/in/shiv-naik" target="_blank">
+                        <img src="static/linkedin.png" alt="LinkedIn" style="height: 20px; width: auto; margin-right: 5px;">
+                    </a>
+                    <a href="https://www.instagram.com/shivnaik" target="_blank">
+                        <img src="static/instagram.png" alt="Instagram" style="height: 20px; width: auto; margin-left: 10px; margin-right: 5px;">
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+{% endblock body %}

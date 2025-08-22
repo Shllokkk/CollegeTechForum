@@ -1,0 +1,277 @@
+/* Global UI styles for CollegeTechForum */
+
+:root {
+  --color-bg: #f8f8f8;
+  --color-black: #000000;
+  --color-dark: #262626;
+  --color-gray-100: #f9f9f9;
+  --color-gray-300: #cccccc;
+  --color-gray-600: #868e96;
+  --color-brand: #007bff;
+  --color-brand-2: #168cb7;
+  --color-text: #333333;
+  --navbar-height: 56px;
+  --sidebar-width: 300px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-text);
+  padding-top: var(--navbar-height);
+}
+
+/* Navbar */
+.app-navbar {
+  background-color: var(--color-black) !important;
+}
+
+/* Navbar refinements */
+.app-nav .nav-link {
+  font-size: 0.98rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.app-user-menu {
+  margin-right: 12px;
+}
+
+.app-user-initials {
+  width: 36px;
+  height: 36px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-user-initials span {
+  width: 50px;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.app-dropdown-menu img {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+.app-search input.form-control {
+  height: 36px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: calc(var(--navbar-height) + 9px);
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - (var(--navbar-height) + 12px));
+  background-color: var(--color-dark);
+  border-right: 2px solid var(--color-black);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+.sidebar .sidebar-title {
+  color: #fff;
+  font-size: 20px;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 2px solid var(--color-dark);
+  margin: 0;
+}
+
+.sidebar .category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .category-list li {
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.sidebar .category-link {
+  color: #bbb;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  border: 2px solid var(--color-black);
+  border-radius: 2px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+}
+
+.sidebar .category-link:hover {
+  background-color: #333333;
+}
+
+/* Main content area */
+.main-content {
+  margin-left: var(--sidebar-width);
+  padding: 8px 16px 16px;
+}
+
+/* Alerts container under navbar */
+.alert-container {
+  position: fixed;
+  top: var(--navbar-height);
+  right: 0;
+  z-index: 1030; /* above sidebar */
+  padding: 8px 12px;
+}
+
+/* Utilities */
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.hot-queries-label {
+  color: #ff5733;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0;
+  margin-left: 10px;
+  animation: fadeInOut 3s infinite;
+}
+
+/* Query list/cards */
+.query-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px auto;
+}
+
+.query-card {
+  border: 1px solid var(--color-brand);
+  padding: 20px;
+  margin: 0 0 16px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  height: 350px;
+  background-color: beige;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.answer-card {
+  border: 1px solid #f0f0f0;
+  background-color: #f0f4f8;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  height: 150px;
+  margin-top: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.answered-by {
+  position: absolute;
+  bottom: 80px;
+  right: 30px;
+  font-style: italic;
+}
+
+.query-actions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.query-actions-left {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+}
+
+/* Leaderboard */
+.leaderboard {
+  position: sticky;
+  top: calc(var(--navbar-height) + 52px);
+  background-color: #333333;
+  border: 2px solid #444444;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+  color: #f8f9fa;
+}
+
+.leaderboard h3 {
+  margin: 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffe643;
+  border-bottom: 2px solid #444444;
+  padding-bottom: 10px;
+}
+
+.leaderboard-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  color: #f8f9fa;
+  margin: 10px 0;
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  color: #f8f9fa;
+}
+
+.leaderboard-list li {
+  border-bottom: 1px solid #555555;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leaderboard-badge {
+  background-color: var(--color-brand);
+  color: #ffffff;
+  padding: 6px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+

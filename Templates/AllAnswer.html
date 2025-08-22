@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}All Answers{% endblock title %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<div style="display: flex; justify-content: center; align-items: flex-start; flex-direction: column; padding-top: 20px; margin-left: 15px;">
+
+    <!-- Answers Section -->
+    {% if answers %}
+        <div style="width: 600px;">
+            {% for answer in answers %}
+            <div style="border: 1px solid #007bff; padding: 20px; margin-top: 20px; background-color: #FFFFFF; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); border-radius: 8px; position: relative;">
+                <p style="color: #333;"><strong>Response:</strong> {{ answer.response }}</p>
+                <p style="color: #555;"><strong>Date:</strong> {{ answer.date }}</p>
+                <p style="color: #555;"><strong>Answered by:</strong> {{ answer.user.username }}</p>
+                <a href="#" style="color: #007BFF; text-decoration: none; position: absolute; bottom: 10px; right: 10px;" onclick="openPopup('{{ answer.answer_id }}')">Rate this answer</a>
+            </div>            
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="color: #333;">No answers found for this query.</p>
+    {% endif %}
+</div>
+
+<!-- Popup container for rating -->
+<div id="popupContainer" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+    <form id="ratingForm" method="post" action="/submit_rating/">
+        {% csrf_token %}
+        <input type="hidden" id="ratingValue" name="ratingValue" value="">
+        <input type="hidden" id="answerId" name="answerId" value="">
+
+        <div class="popupContent" style="background-color: #FFF; margin: 10% auto; padding: 30px; border-radius: 10px; width: 400px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);">
+            <span class="close" style="color: #aaa; float: right; font-size: 28px; cursor: pointer;">&times;</span>
+            <h2 style="color: #333; text-align: center;">Rate This Answer</h2>
+
+            <!-- Star Rating -->
+            <div id="ratingStars" name="ratingStars" style="text-align: center; margin-top: 20px;">
+                <span style="font-size: 30px; cursor: pointer; color: #FFD700;" onclick="setRating(1);">&#9733;</span>
+                <span style="font-size: 30px; cursor: pointer; color: #FFD700;" onclick="setRating(2);">&#9733;</span>
+                <span style="font-size: 30px; cursor: pointer; color: #FFD700;" onclick="setRating(3);">&#9733;</span>
+                <span style="font-size: 30px; cursor: pointer; color: #FFD700;" onclick="setRating(4);">&#9733;</span>
+                <span style="font-size: 30px; cursor: pointer; color: #FFD700;" onclick="setRating(5);">&#9733;</span>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitRating" style="display: block; margin: 20px auto 0; width: 100%; padding: 12px; background: linear-gradient(90deg, #007bff, #168cb7); color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 16px; transition: background 0.3s ease;">
+                Submit Rating
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+  /* Body and general background */
+  body {
+    background-color: var(--color-bg);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--color-text);
+    }
+
+  /* Close button for popup */
+  .close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Popup content shadow and color */
+  .popupContent {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Rating button hover effect */
+  #submitRating:hover {
+    background: linear-gradient(90deg, #007bff, #005fa3);
+  }
+</style>
+    
+
+    <script>
+        var currentRating = 0;
+
+        function setRating(rating) {
+    currentRating = rating; // Set the current rating
+    var stars = document.querySelectorAll('#ratingStars span');
+    
+    // Update the star colors based on the rating
+    stars.forEach(function(star, index) {
+        star.style.color = index < rating ? 'gold' : 'black';
+    });
+
+    // Update the hidden input field for ratingValue
+    document.getElementById("ratingValue").value = currentRating; // Set the value for submission
+}
+
+
+        function openPopup(answeriden) {
+        // Here you can use the answerId parameter as needed
+        // For example, you can access the answerId like this:
+        // You can also use it to perform other operations within this function
+        var answerId=answeriden
+        document.getElementById("answerId").value = answerId;
+        document.getElementById("popupContainer").style.display = "block";
+    }
+
+        document.getElementById("popupContainer").addEventListener("click", function(event) {
+            if (event.target == this || event.target.classList.contains("close")) {
+                this.style.display = "none"; 
+            }
+        });
+
+        document.getElementById("submitRating").addEventListener("click", function(event) {
+            event.preventDefault();
+            // Get the currentRating value
+            var ratingValue = currentRating;
+            var answerId = document.getElementById("answerId").value;
+            fetch("/submit_rating/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({
+                answerId: answerId,
+                ratingValue: ratingValue
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Rating submitted successfully!");
+            } else {
+                alert("Error submitting rating.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+
+        document.getElementById("popupContainer").style.display = "none"; // Hide the popup after rating
+    });
+</script>
+{% endblock body %}

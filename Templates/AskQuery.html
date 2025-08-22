@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Ask Query{% endblock title %}
+
+{% block body %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 70vh; margin-top: 48px; animation: fadeIn 0.4s ease;">
+  <div style="width: 600px; background-color: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.15); border-radius: 10px;">
+    <div style="padding: 20px; border: 1px solid #ced4da; border-radius: 10px;">
+      <h3 style="color: #333; text-align: center; font-weight: 600; font-family: 'Arial', sans-serif; margin-bottom: 12px;">Post Your Query</h3>
+      <form method="post" action="/AskingQuerry">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="Querry" style="color: #000000; font-weight: 500;">Your Query</label>
+          <textarea class="form-control" id="desc" name="desc" placeholder="Enter your query (Maximum 100 characters)" style="height: 192px;" oninput="checkCharCount(this, 100)" required></textarea>
+          <p id="charCount" style="font-size: 12px; color: red;"></p>
+        </div>
+        <div class="form_wrapper">
+          <select id="Cat" name="Cat" style="width: 60%; padding: 10px; border-radius: 5px; margin-bottom: 15px;" required>
+            <option value="" disabled selected>Category</option>
+            <option value="Attendance">Attendance</option>
+            <option value="Miniproject">Miniproject</option>
+            <option value="Examination">Examination</option>
+            <option value="Practicals/Viva">Practicals/Viva</option>
+            <option value="Events">Events</option>
+            <option value="Administration">Administration</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <button type="submit" class="submit-btn" style="width: 40%;">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<style>
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .submit-btn { background: linear-gradient(90deg, #007bff, #168cb7); border: none; color: white; padding: 12px; text-align: center; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px; transition: background 0.3s ease; }
+  .submit-btn:hover { background: linear-gradient(90deg, #007bff, #007bff); }
+</style>
+<script>
+  function checkCharCount(textarea, limit) {
+    var charCount = textarea.value.length;
+    var charCountElement = document.getElementById("charCount");
+    if (charCount > limit) {
+      textarea.value = textarea.value.substring(0, limit);
+    }
+    charCountElement.innerText = "Character count: " + charCount;
+    charCountElement.style.color = charCount > limit * 0.95 ? 'red' : '#333';
+  }
+</script>
+{% endblock body %}
+
+

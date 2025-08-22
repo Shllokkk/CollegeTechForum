@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'SignUp.css'%}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <header>
+            <h4>Sign up</h4>
+        </header>
+        <form id="signup-form" method="post">
+            {% csrf_token %}
+            <div class="form_wrapper">
+                <input id="name" type="text" name="name" required>
+                <label for="name">Username</label>
+                <i class="material-icons">person</i>
+            </div>  
+
+            <div class="form_wrapper">
+                <input id="password" type="password" name="password" required>
+                <label for="password">Password</label>
+                <i class="material-icons visibility-icon" id="togglePassword">visibility_off</i>
+            </div>
+
+            <div class="form_wrapper">
+                <input id="email" type="email" name="email" required>
+                <label for="email">Email</label>
+                <i class="material-icons">email</i>
+            </div>  
+        
+            <div class="form_wrapper">
+                <select id="Year" name="Year" required style="padding: 10px; border: 2px solid white; width: 100%; border-radius: 25px; outline: none; background-color: transparent; color: white; appearance: none; -webkit-appearance: none;">
+                    <option value="" disabled selected>Select Year</option>
+                    <option value="FE" style="color: black;">FE</option>
+                    <option value="SE" style="color: black;">SE</option>
+                    <option value="TE" style="color: black;">TE</option>
+                    <option value="BE" style="color: black;">BE</option>
+                </select>
+                <i class="material-icons">Y</i>
+            </div>
+            
+            <div class="form_wrapper">
+                <select id="Branch" name="Branch" required style="padding: 10px; border: 2px solid white; width: 100%; border-radius: 25px; outline: none; background-color: transparent; color: white; appearance: none; -webkit-appearance: none;">
+                    <option value="" disabled selected>Select Branch</option>
+                    <option value="IT" style="color: black;">IT</option>
+                    <option value="COMPS" style="color: black;">COMPS</option>
+                    <option value="EXTC" style="color: black;">EXTC</option>
+                    <option value="MECH" style="color: black;">MECH</option>
+                </select>
+                <i class="material-icons">school</i>
+            </div>
+            
+            
+            <button type="submit" class="btn btn-primary">SignUp</button>
+            <div class="new_account">
+                Already having an account ? <a href="/LogIn">Login</a>
+            </div>
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#signup-form').submit(function(e) {
+                    e.preventDefault(); // Prevent form submission
+
+                    // Get form data
+                    var formData = $(this).serialize();
+
+                    // Send AJAX request to SignUpButton view
+                    $.ajax({
+                        url: '/SignUpButton',
+                        type: 'POST',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.success) {
+                                // Display success message
+                                alert(response.message);
+
+                                // Redirect to login page after acknowledging the message
+                                window.location.href = '/login';
+                            } else {
+                                // Display error message
+                                alert(response.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // Display error message
+                            alert('An error occurred: ' + error);
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            const passwordInput = document.getElementById("password");
+            const togglePassword = document.getElementById("togglePassword");
+
+            togglePassword.addEventListener("click", function() {
+                // Toggle the type attribute
+                const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+
+                // Toggle the icon
+                this.textContent = type === "password" ? "visibility_off" : "visibility";
+            });
+        </script>
+    </main>
+</body>
+
+</html>
