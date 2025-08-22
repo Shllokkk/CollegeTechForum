@@ -66,7 +66,7 @@ CollegeTechForum/
 ### 🔐 **Authentication Flow**
 
 #### 1. **Signup Page**
-![Signup Page](screenshots/SignupPage.png)
+![Signup Page]([screenshots/SignupPage.png](https://github.com/Shllokkk/CollegeTechForum/blob/main/Screenshots/AboutUsPage.png))
 *New users can create accounts with their name, email, year, and branch information.*
 
 #### 2. **Login Page**
