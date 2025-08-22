@@ -66,61 +66,61 @@ CollegeTechForum/
 ### 🔐 **Authentication Flow**
 
 #### 1. **Signup Page**
-![Signup Page](screenshots/SignupPage.png)
+![Signup Page](Screenshots/SignupPage.png)
 *New users can create accounts with their name, email, year, and branch information.*
 
 #### 2. **Login Page**
-![Login Page](screenshots/LoginPage.png)
+![Login Page](Screenshots/LoginPage.png)
 *Existing users can securely log in to access the forum features.*
 
 ### 🏠 **Main Application**
 
 #### 3. **Homepage**
-![Homepage](screenshots/Homepage.png)
+![Homepage](Screenshots/Homepage.png)
 *The main dashboard showing recent queries, categories, and leaderboard information.*
 
 #### 4. **Ask Query Page**
-![Ask Query Page](screenshots/AskQueryPage.png)
+![Ask Query Page](Screenshots/AskQueryPage.png)
 *Users can post new queries with descriptions and select appropriate categories.*
 
 ### 🔍 **Query Management & Discovery**
 
 #### 5. **Search Page**
-![Search Page](screenshots/SearchPage.png)
+![Search Page](Screenshots/SearchPage.png)
 *Full-text search functionality to find specific queries across the forum.*
 
 #### 6. **Category Page**
-![Category Page](screenshots/CategoryPage.png)
+![Category Page](Screenshots/CategoryPage.png)
 *Browse queries organized by categories like Attendance, Exams, Mini-projects, etc.*
 
 #### 7. **Unanswered Queries Page**
-![Unanswered Queries Page](screenshots/UnansweredQueriesPage.png)
+![Unanswered Queries Page](Screenshots/UnansweredQueriesPage.png)
 *View queries that haven't received answers yet, encouraging community participation.*
 
 ### 💬 **Answering & Interaction**
 
 #### 8. **Answer Query Page**
-![Answer Query Page](screenshots/AnswerQueryPage.png)
+![Answer Query Page](Screenshots/AnswerQueryPage.png)
 *Users can provide detailed answers to queries posted by others.*
 
 #### 9. **Answers For Query Page**
-![Answers For Query Page](screenshots/AnswersForQueryPage.png)
+![Answers For Query Page](Screenshots/AnswersForQueryPage.png)
 *View all answers for a specific query with user information and response details.*
 
 ### ⭐ **Rating & Feedback**
 
 #### 10. **Rating Page**
-![Rating Page](screenshots/RatingPage.png)
+![Rating Page](Screenshots/RatingPage.png)
 *Users can rate answers to help identify the most helpful responses and contributors.*
 
 ### ℹ️ **Information Pages**
 
 #### 11. **About Us Page**
-![About Us Page](screenshots/AboutUsPage.png)
+![About Us Page](Screenshots/AboutUsPage.png)
 *Information about the platform and its purpose.*
 
 #### 12. **Contact Us Page**
-![Contact Us Page](screenshots/ContactUsPage.png)
+![Contact Us Page](Screenshots/ContactUsPage.png)
 *Contact information and support details for users.*
 
 ---
